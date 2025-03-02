@@ -1,8 +1,16 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Globe } from "lucide-react"
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Globe } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
 
 const categories = [
   { id: "all", name: "All" },
@@ -13,11 +21,12 @@ const categories = [
   { id: "entertainment", name: "Entertainment" },
   { id: "sports", name: "Sports" },
   { id: "world", name: "World" },
-]
+];
 
 const countries = [
   { code: "us", name: "United States" },
   { code: "gb", name: "United Kingdom" },
+  { code: "gr", name: "Greece" },
   { code: "ca", name: "Canada" },
   { code: "au", name: "Australia" },
   { code: "in", name: "India" },
@@ -26,26 +35,34 @@ const countries = [
   { code: "jp", name: "Japan" },
   { code: "br", name: "Brazil" },
   { code: "mx", name: "Mexico" },
-]
+];
 
-interface NewsFiltersProps {
-  selectedCategory: string
-  onCategoryChange: (category: string) => void
-  selectedCountry: string
-  onCountryChange: (country: string) => void
-}
+export default function NewsFilters() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
 
-export default function NewsFilters({
-  selectedCategory,
-  onCategoryChange,
-  selectedCountry,
-  onCountryChange,
-}: NewsFiltersProps) {
+      return params.toString();
+    },
+    [searchParams]
+  );
+  const selectedCountry = searchParams.get("country") ?? "";
+  const selectedCategory = searchParams.get("category") ?? "all";
+
   return (
     <div className="flex flex-col gap-4 mb-4">
       <div className="flex items-center gap-2">
         <Globe className="h-4 w-4 text-muted-foreground" />
-        <Select value={selectedCountry} onValueChange={onCountryChange}>
+        <Select
+          value={selectedCountry}
+          onValueChange={(country) =>
+            router.push(`${pathname}?${createQueryString("country", country)}`)
+          }
+        >
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Select country" />
           </SelectTrigger>
@@ -65,13 +82,16 @@ export default function NewsFilters({
             key={category.id}
             variant={selectedCategory === category.id ? "default" : "outline"}
             size="sm"
-            onClick={() => onCategoryChange(category.id)}
+            onClick={() =>
+              router.push(
+                `${pathname}?${createQueryString("category", category.id)}`
+              )
+            }
           >
             {category.name}
           </Button>
         ))}
       </div>
     </div>
-  )
+  );
 }
-

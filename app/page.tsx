@@ -1,7 +1,16 @@
 import NewsContainer from "@/components/news-container";
+import NewsContainerSkeleton from "@/components/news-container-skeleton";
+import NewsFilters from "@/components/news-filters";
 import { Newspaper } from "lucide-react";
+import { Suspense } from "react";
 
-export default function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+}) {
+  const { country, category } = await searchParams;
+
   return (
     <main className="min-h-screen bg-background">
       <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -19,8 +28,14 @@ export default function Home() {
           </div>
         </div>
       </header>
-      <div className="container mx-auto py-6 px-4 md:px-6">
-        <NewsContainer />
+      <div className="container mx-auto py-6 px-4 md:px-6 space-y-4">
+        <NewsFilters />
+        <Suspense
+          key={`${country}-${category}`}
+          fallback={<NewsContainerSkeleton />}
+        >
+          <NewsContainer filters={{ country, category }} />
+        </Suspense>
       </div>
     </main>
   );
