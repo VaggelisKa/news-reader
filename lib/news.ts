@@ -9,8 +9,8 @@ export async function fetchNews(
   try {
     let apiUrl = `https://gnews.io/api/v4/top-headlines?token=${API_KEY}&lang=en&max=20&country=${country}`;
 
-    if (category && category !== "all") {
-      apiUrl += `&topic=${category}`;
+    if (category && category !== "general") {
+      apiUrl += `&category=${category}`;
     }
 
     const response = await fetch(apiUrl, {
