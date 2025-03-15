@@ -80,12 +80,7 @@ export default function NewsFilters() {
           <Link
             className="focus-visible:outline-1 focus-visible:outline-primary rounded-md"
             key={category.id}
-            href={{
-              pathname: "/",
-              query: {
-                category: category.id,
-              },
-            }}
+            href={`${pathname}?${createQueryString("category", category.id)}`}
             prefetch
           >
             <Button
