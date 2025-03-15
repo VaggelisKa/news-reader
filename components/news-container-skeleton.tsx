@@ -5,7 +5,7 @@ export default function NewsContainerSkeleton() {
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       {Array.from({ length: 9 }).map((_, i) => (
         <div key={i}>
-          <Skeleton className="h-48 w-full" />
+          <Skeleton className="h-48 border w-full" />
 
           <div className="border rounded-md p-4 space-y-2">
             <div className="animate-pulse rounded-md bg-muted h-4 w-3/4" />

@@ -13,7 +13,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
 const categories = [
-  { id: "general", name: "All" },
+  { id: "top", name: "All" },
   { id: "business", name: "Business" },
   { id: "technology", name: "Technology" },
   { id: "science", name: "Science" },
@@ -27,6 +27,7 @@ const countries = [
   { code: "us", name: "United States" },
   { code: "gb", name: "United Kingdom" },
   { code: "gr", name: "Greece" },
+  { code: "dk", name: "Denmark" },
   { code: "ca", name: "Canada" },
   { code: "au", name: "Australia" },
   { code: "in", name: "India" },
@@ -48,7 +49,7 @@ export default function NewsFilters() {
     [searchParams]
   );
   const selectedCountry = searchParams.get("country") ?? "";
-  const selectedCategory = searchParams.get("category") ?? "general";
+  const selectedCategory = searchParams.get("category") ?? "top";
 
   return (
     <div className="flex flex-col gap-4 mb-4">

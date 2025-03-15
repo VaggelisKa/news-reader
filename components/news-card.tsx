@@ -15,27 +15,26 @@ export default function NewsCard({
   isExpanded,
   onToggleExpand,
 }: NewsCardProps) {
-  const publishedDate = article.publishedAt
-    ? formatDistanceToNow(new Date(article.publishedAt), { addSuffix: true })
+  const publishedDate = article.pubDate
+    ? formatDistanceToNow(new Date(article.pubDate), { addSuffix: true })
     : "Recently";
 
   return (
     <div className="border rounded-md overflow-hidden hover:shadow-sm transition-shadow bg-card">
-      {article.image && (
-        <div className="relative h-48 w-full">
-          <Image
-            src={article.image || "/placeholder.svg"}
-            alt=""
-            fill
-            unoptimized
-            className="object-cover"
-          />
-        </div>
-      )}
+      <div className="relative animate-in h-48 w-full">
+        <Image
+          src={article.image_url || "/news-placeholder.jpg"}
+          alt=""
+          fill
+          unoptimized
+          className="object-cover"
+        />
+      </div>
+
       <div className="p-4 space-y-2">
         <h3 className="font-medium line-clamp-2 hover:underline">
           <a
-            href={article.url}
+            href={article.source_url}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-start gap-1"
@@ -55,7 +54,7 @@ export default function NewsCard({
         </p>
 
         <div className="flex justify-between items-center text-xs pt-2">
-          <span className="text-muted-foreground">{article.source.name}</span>
+          <span className="text-muted-foreground">{article.source_name}</span>
           <div className="flex items-center gap-2">
             <span className="text-muted-foreground">{publishedDate}</span>
             <button

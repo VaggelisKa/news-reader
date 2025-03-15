@@ -1,21 +1,36 @@
-export interface NewsResponse {
-  status: string
-  totalResults: number
-  articles: Article[]
-}
+export type NewsResponse = {
+  status: string;
+  results: Article[];
+};
 
-export interface Article {
-  source: {
-    id: string | null
-    name: string
-  }
-  author: string | null
-  title: string
-  description: string | null
-  url: string
-  urlToImage: string | null
-  image: string | null // Add this line
-  publishedAt: string
-  content: string | null
-}
-
+export type Article = {
+  article_id: string;
+  title: string;
+  link: string;
+  keywords: string[] | null;
+  creator?: string;
+  video_url?: string;
+  description: string;
+  content: string;
+  pubDate: string;
+  pubDateTZ: string;
+  image_url: string;
+  source_id: string;
+  source_priority: number;
+  source_name: string;
+  source_url: string;
+  source_icon: string;
+  language: string;
+  country: string[];
+  category: string[];
+  ai_tag: string[];
+  ai_region: string[];
+  ai_org: string[];
+  sentiment: string;
+  sentiment_stats: {
+    positive: number;
+    neutral: number;
+    negative: number;
+  };
+  duplicate: boolean;
+};

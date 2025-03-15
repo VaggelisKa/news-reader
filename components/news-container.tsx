@@ -9,9 +9,9 @@ export default async function NewsContainer({
 }) {
   const newsResponse = await fetchNews(filters.country, filters.category);
 
-  if (!newsResponse.articles.length) {
+  if (!newsResponse.results.length) {
     return <EmptyNewsState />;
   }
 
-  return <NewsList articles={newsResponse.articles} />;
+  return <NewsList results={newsResponse.results} />;
 }
