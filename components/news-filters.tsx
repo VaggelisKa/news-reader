@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Globe, Search } from "lucide-react";
+import { Globe, RotateCcw, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
@@ -53,6 +53,10 @@ export default function NewsFilters() {
   const selectedCountry = searchParams.get("country") ?? "";
   const selectedCategory = searchParams.get("category") ?? "top";
   const selectedQuery = searchParams.get("q") ?? "";
+  const hasActiveFilters =
+    selectedCountry !== "" ||
+    (selectedCategory !== "top" && !!selectedCategory) ||
+    selectedQuery !== "";
 
   return (
     <div className="space-y-4 mb-4">
@@ -124,6 +128,23 @@ export default function NewsFilters() {
           ))}
         </div>
       </div>
+
+      {hasActiveFilters && (
+        <div className="flex justify-end">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="flex items-center gap-1"
+            onClick={() => {
+              router.push(pathname);
+            }}
+          >
+            <RotateCcw className="h-3.5 w-3.5" />
+            Reset All Filters
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
