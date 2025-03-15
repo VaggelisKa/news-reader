@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Globe } from "lucide-react";
+import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
@@ -76,18 +77,25 @@ export default function NewsFilters() {
 
       <div className="flex flex-wrap gap-2">
         {categories.map((category) => (
-          <Button
+          <Link
+            className="focus-visible:outline-1 focus-visible:outline-primary rounded-md"
             key={category.id}
-            variant={selectedCategory === category.id ? "default" : "outline"}
-            size="sm"
-            onClick={() =>
-              router.push(
-                `${pathname}?${createQueryString("category", category.id)}`
-              )
-            }
+            href={{
+              pathname: "/",
+              query: {
+                category: category.id,
+              },
+            }}
+            prefetch
           >
-            {category.name}
-          </Button>
+            <Button
+              variant={selectedCategory === category.id ? "default" : "outline"}
+              size="sm"
+              tabIndex={-1}
+            >
+              {category.name}
+            </Button>
+          </Link>
         ))}
       </div>
     </div>
