@@ -9,7 +9,7 @@ export default async function Home({
 }: {
   searchParams: Promise<{ [key: string]: string | undefined }>;
 }) {
-  const { country, category } = await searchParams;
+  const { country, category, q } = await searchParams;
 
   return (
     <main className="min-h-screen bg-background">
@@ -31,10 +31,10 @@ export default async function Home({
       <div className="container mx-auto py-6 px-4 md:px-6 space-y-4">
         <NewsFilters />
         <Suspense
-          key={`${country}-${category}`}
+          key={`${country}-${category}-${q}`}
           fallback={<NewsContainerSkeleton />}
         >
-          <NewsContainer filters={{ country, category }} />
+          <NewsContainer filters={{ country, category, query: q }} />
         </Suspense>
       </div>
     </main>

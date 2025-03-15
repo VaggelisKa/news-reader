@@ -4,10 +4,15 @@ const API_KEY = process.env.NEWS_API_KEY;
 
 export async function fetchNews(
   country = "us",
-  category = ""
+  category = "",
+  query?: string
 ): Promise<NewsResponse> {
   try {
     let apiUrl = `https://newsdata.io/api/1/latest?apikey=${API_KEY}&country=${country}&language=en&removeduplicate=1&prioritydomain=medium`;
+
+    if (query) {
+      apiUrl += `&q=${query}`;
+    }
 
     if (category && category !== "top") {
       apiUrl += `&category=${category}`;

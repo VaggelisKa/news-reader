@@ -5,9 +5,13 @@ import EmptyNewsState from "./empty-news-state";
 export default async function NewsContainer({
   filters,
 }: {
-  filters: { country?: string; category?: string };
+  filters: { country?: string; category?: string; query?: string };
 }) {
-  const newsResponse = await fetchNews(filters.country, filters.category);
+  const newsResponse = await fetchNews(
+    filters.country,
+    filters.category,
+    filters.query
+  );
 
   if (!newsResponse.results.length) {
     return <EmptyNewsState />;
