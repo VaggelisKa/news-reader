@@ -14,7 +14,7 @@ export async function fetchNews(
     }
 
     const response = await fetch(apiUrl, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 6 * 3600 },
     });
 
     if (!response.ok) {
