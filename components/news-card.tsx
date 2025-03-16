@@ -34,7 +34,7 @@ export default function NewsCard({
       <div className="p-4 space-y-2">
         <h3 className="font-medium line-clamp-2 hover:underline">
           <a
-            href={article.source_url}
+            href={article.link}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-start gap-1"
